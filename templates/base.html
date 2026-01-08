@@ -1,0 +1,116 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Task Manager{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  {% if user.is_authenticated %}
+  <!-- App Shell: Sidebar + Content -->
+  <div class="app-shell">
+
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      <div class="brand-area">
+        <div class="brand-mark"></div>
+        <span>Task Manager</span>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="{% url 'task_list' %}" class="nav-item {% if '/tasks/' in request.path %}active{% endif %}">
+          Task
+        </a>
+        <a href="/accounts/profile/" class="nav-item {% if 'profile' in request.path %}active{% endif %}">
+          Profile
+        </a>
+        
+        <a href="/accounts/dashboard/"
+           class="nav-item {% if 'accounts/dashboard' in request.path %}active{% endif %}">
+           Dashboard
+        </a>
+
+
+        {% if user.is_staff %}
+        <div
+          style="margin-top: 1rem; padding-left: 1rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); opacity: 0.6;">
+          Administration</div>
+        <a href="/accounts/admin-dashboard/"
+          class="nav-item {% if 'admin-dashboard' in request.path %}active{% endif %}">
+          Dashboard
+        </a>
+        <a href="/accounts/audit-logs/" class="nav-item {% if 'audit-logs' in request.path %}active{% endif %}">
+          Audit Logs
+        </a>
+        {% endif %}
+      </nav>
+
+      <div class="sidebar-footer">
+        <div style="margin-bottom: 0.75rem; font-size: 0.85rem; color: var(--text-muted);">
+          {{ user.username }}
+          {% if user.is_staff %}<span class="badge badge-primary"
+            style="margin-left: 5px; font-size: 10px; padding: 1px 5px;">ADMIN</span>{% endif %}
+        </div>
+        <a href="/accounts/logout/" class="btn btn-secondary btn-sm" style="width: 100%;">Sign Out</a>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Header -->
+      <header class="top-bar">
+        <div class="page-title">{% block page_title %}Dashboard{% endblock %}</div>
+        <!-- Right actions (placeholder for potential future search/notifs) -->
+        <div style="font-size: 0.85rem; color: var(--text-muted);">
+          {{ now|date:"l, F j, Y" }}
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="content-wrapper">
+        {% if messages %}
+        <div class="messages mb-4">
+          {% for message in messages %}
+          <div class="flash {{ message.tags }}"
+            style="padding: 1rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); color: #6ee7b7; border-radius: var(--radius-sm);">
+            {{ message }}
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+      </div>
+    </main>
+  </div>
+
+  {% else %}
+  <!-- Guest Wrapper: Center Layout -->
+  <div class="auth-layout">
+    <div class="auth-container">
+      {% if messages %}
+      <div class="messages mb-4">
+        {% for message in messages %}
+        <div class="flash {{ message.tags }}"
+          style="padding: 1rem; background: rgba(16, 185, 129, 0.1); border-left: 3px solid #10b981; color: #6ee7b7; margin-bottom: 1rem;">
+          {{ message }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% block content_guest %}{% endblock %}
+    </div>
+  </div>
+  {% endif %}
+
+</body>
+
+</html>

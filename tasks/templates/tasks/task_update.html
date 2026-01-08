@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Edit Task{% endblock %}
+{% block page_title %}Edit Task{% endblock %}
+
+{% block content %}
+<div class="flex-between mb-4">
+  <div>
+    <h2 style="font-size: 1.5rem; color: var(--text-header);">Edit Task</h2>
+    <p style="margin: 0; color: var(--text-muted);">Update your task details safely.</p>
+  </div>
+  <a class="btn btn-secondary" href="{% url 'task_list' %}">Back</a>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+
+      <div style="margin-bottom: 1rem;">
+        <label style="display:block; font-weight:600; margin-bottom:.35rem;">Title</label>
+        {{ form.title }}
+      </div>
+
+      <div style="margin-bottom: 1rem;">
+        <label style="display:block; font-weight:600; margin-bottom:.35rem;">Description</label>
+        {{ form.description }}
+      </div>
+
+      <div style="text-align: right;">
+        <button class="btn btn-primary" type="submit">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

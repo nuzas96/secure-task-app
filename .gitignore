@@ -1,0 +1,21 @@
+# Environment variables
+.env
+
+# Database
+db.sqlite3
+
+# Logs
+*.log
+audit.log
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Django static files
+staticfiles/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store

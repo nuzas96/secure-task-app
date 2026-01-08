@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Create Task{% endblock %}
+{% block page_title %}Create Task{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 800px; margin: 0 auto;">
+  <div class="card-header">
+    <h3>New Task Details</h3>
+    <a href="/tasks/" class="btn btn-secondary btn-sm">Cancel</a>
+  </div>
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+
+      <div class="django-form-wrapper">
+        {{ form.as_p }}
+      </div>
+
+      <div class="mt-4"
+        style="padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 1rem;">
+        <a class="btn btn-secondary" href="/tasks/">Cancel</a>
+        <button class="btn btn-primary" type="submit">Create Task</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  /* Local overrides for formatting django's as_p output in this specific context */
+  .django-form-wrapper p {
+    margin-bottom: 1.5rem;
+  }
+
+  .django-form-wrapper label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .django-form-wrapper input[type="text"],
+  .django-form-wrapper textarea,
+  .django-form-wrapper select {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-sm);
+    color: var(--text-main);
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+
+  .django-form-wrapper input:focus,
+  .django-form-wrapper textarea:focus,
+  .django-form-wrapper select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-soft);
+    background: rgba(15, 23, 42, 0.8);
+  }
+</style>
+{% endblock %}

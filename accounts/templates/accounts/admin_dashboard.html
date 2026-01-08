@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block page_title %}Admin Overview{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <h2 style="font-size: 1.5rem; color: var(--text-header); margin-bottom: 0.5rem;">System Overview</h2>
+    <p>Administrative controls and monitoring.</p>
+</div>
+
+<div class="dashboard-grid">
+    <!-- Admin Card 1 -->
+    <div class="card">
+        <div class="card-body">
+            <div class="flex-between mb-4">
+                <h3
+                    style="font-size: 1rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">
+                    Task Management</h3>
+                <div
+                    style="width: 40px; height: 40px; background: rgba(245, 158, 11, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #f59e0b;">
+                    <span style="font-size: 1.2rem; font-weight: bold;">M</span>
+                </div>
+            </div>
+            <div style="font-size: 2rem; font-weight: 700; color: var(--text-header); margin-bottom: 0.5rem;">
+                All Tasks
+            </div>
+            <div style="font-size: 0.9rem; color: var(--text-muted);">View/Delete any user task</div>
+            <div class="mt-4">
+                <a href="{% url 'task_list' %}" class="btn btn-primary" style="width: 100%;">Manage Tasks</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Card 2 -->
+    <div class="card">
+        <div class="card-body">
+            <div class="flex-between mb-4">
+                <h3
+                    style="font-size: 1rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">
+                    Security Audit</h3>
+                <div
+                    style="width: 40px; height: 40px; background: rgba(239, 68, 68, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #ef4444;">
+                    <span style="font-size: 1.2rem; font-weight: bold;">L</span>
+                </div>
+            </div>
+            <div style="font-size: 2rem; font-weight: 700; color: var(--text-header); margin-bottom: 0.5rem;">
+                System Logs
+            </div>
+            <div style="font-size: 0.9rem; color: var(--text-muted);">View access and error logs</div>
+            <div class="mt-4">
+                <a href="/accounts/audit-logs/" class="btn btn-secondary" style="width: 100%;">View Logs</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

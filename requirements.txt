@@ -1,0 +1,4 @@
+Django
+argon2-cffi
+python-dotenv
+whitenoise

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+{% block page_title %}User Profile{% endblock %}
+
+{% block content %}
+<div class="dashboard-grid" style="grid-template-columns: 1fr;">
+  <div class="card">
+    <div class="card-header">
+      <h3>Account Information</h3>
+      {% if is_staff %}
+      <span class="badge badge-primary">Administrator Role</span>
+      {% else %}
+      <span class="badge">Standard User</span>
+      {% endif %}
+    </div>
+    <div class="card-body">
+      <div style="display: grid; gap: 1.5rem; max-width: 600px;">
+        <div class="field">
+          <label>Username</label>
+          <div style="font-size: 1.1rem; color: var(--text-main);">{{ username }}</div>
+        </div>
+
+        <div class="field">
+          <label>Email Address</label>
+          <div style="font-size: 1.1rem; color: var(--text-main);">{{ email|default:"Not provided" }}</div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+          <div class="field">
+            <label>Member Since</label>
+            <div style="color: var(--text-muted);">{{ date_joined|date:"F j, Y" }}</div>
+          </div>
+          <div class="field">
+            <label>Last Login</label>
+            <div style="color: var(--text-muted);">{{ last_login|default:"Never" }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4" style="border-top: 1px solid var(--border); padding-top: 1.5rem;">
+        <a class="btn btn-danger" href="/accounts/logout/">Sign Out</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

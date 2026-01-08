@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+
+{% block content_guest %}
+<div class="card glass">
+  <div class="card-header" style="flex-direction: column; align-items: center; border-bottom: none; padding-bottom: 0;">
+    <h1 style="font-size: 1.5rem; color: white;">Create Account</h1>
+    <p style="text-align: center; color: var(--text-muted);">Join the workspace</p>
+  </div>
+
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+
+      {% if form.errors %}
+      <div class="errorlist">
+        {{ form.non_field_errors }}
+      </div>
+      {% endif %}
+
+      {% for field in form %}
+      <div class="field">
+        <label>{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+        <div style="font-size: 0.8rem; color: var(--danger); margin-top: 4px;">
+          {{ field.errors }}
+        </div>
+        {% endif %}
+        {% if field.help_text %}
+        <div class="help">{{ field.help_text }}</div>
+        {% endif %}
+      </div>
+      {% endfor %}
+
+      <div class="mt-4">
+        <button class="btn btn-primary" style="width: 100%; justify-content: center;" type="submit">Register</button>
+      </div>
+
+      <div style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+        Already have an account? <a href="/accounts/login/" style="color: var(--primary);">Login here</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

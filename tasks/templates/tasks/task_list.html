@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Tasks{% endblock %}
+{% block page_title %}Tasks{% endblock %}
+
+{% block content %}
+<div class="flex-between mb-4">
+  <div>
+    <h2 style="font-size: 1.5rem; color: var(--text-header);">My Tasks</h2>
+    <p style="margin: 0;">{% if user.is_staff %}Admin view: Controlling all tasks in the system{% else %}Manage and
+      track your personal tasks{% endif %}</p>
+  </div>
+  <a class="btn btn-primary" href="/tasks/create/">
+    <span style="font-size: 1.2rem; line-height: 1;">+</span> New Task
+  </a>
+</div>
+
+<div class="card">
+  <div class="card-body" style="padding: 0;">
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Task Title</th>
+            <th>Description</th>
+            {% if user.is_staff %}<th>Owner</th>{% endif %}
+            <th style="width: 120px; text-align: right;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for task in tasks %}
+          <tr>
+            <td>
+              <div style="font-weight: 600; font-size: 0.95rem; color: var(--text-main);">{{ task.title }}</div>
+            </td>
+            <td style="color: var(--text-muted);">{{ task.description|default:"-"|truncatechars:80 }}</td>
+            {% if user.is_staff %}<td><span class="badge">{{ task.owner.username }}</span></td>{% endif %}
+            <td style="text-align: right;">
+              <a class="btn btn-secondary btn-sm" href="/tasks/edit/{{ task.id }}/" style="margin-right: .25rem;">
+                Edit
+              </a>
+
+              <form method="post" action="/tasks/delete/{{ task.id }}/" style="display:inline;">
+                {% csrf_token %}
+                <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+              </form>
+            </td>
+
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="4" style="text-align: center; padding: 4rem 2rem; color: var(--text-muted);">
+              <div style="margin-bottom: 1rem; opacity: 0.5;">(No tasks found)</div>
+              You don't have any tasks yet. Create one to get started.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

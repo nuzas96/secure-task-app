@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block content_guest %}
+<div class="card glass">
+  <div class="card-header" style="flex-direction: column; align-items: center; border-bottom: none; padding-bottom: 0;">
+    <div
+      style="font-size: 2rem; font-weight: 700; color: white; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+      <div style="width: 14px; height: 14px; background: #8b5cf6; border-radius: 50%; box-shadow: 0 0 15px #8b5cf6;">
+      </div>
+      Task Manager
+    </div>
+    <p style="text-align: center; color: var(--text-muted);">Secure Enterprise Login</p>
+  </div>
+
+  <div class="card-body">
+    <form method="post" novalidate>
+      {% csrf_token %}
+
+      {% if form.non_field_errors %}
+      <ul class="errorlist">{{ form.non_field_errors }}</ul>
+      {% endif %}
+
+      <div class="field">
+        <label for="{{ form.username.id_for_label }}">Username</label>
+        {{ form.username }}
+        {% if form.username.errors %}<div class="help text-danger">{{ form.username.errors }}</div>{% endif %}
+      </div>
+
+      <div class="field">
+        <label for="{{ form.password.id_for_label }}">Password</label>
+        {{ form.password }}
+        {% if form.password.errors %}<div class="help text-danger">{{ form.password.errors }}</div>{% endif %}
+      </div>
+
+      <div class="mt-4">
+        <button class="btn btn-primary" style="width: 100%; justify-content: center; padding: 0.8rem;"
+          type="submit">Sign In</button>
+      </div>
+
+      <div style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+        New user? <a href="/accounts/register/" style="color: var(--primary);">Create account</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

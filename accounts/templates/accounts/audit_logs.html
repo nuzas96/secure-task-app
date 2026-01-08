@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Audit Logs{% endblock %}
+{% block page_title %}Security Audit Logs{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header flex-between">
+    <h3>System Activity</h3>
+    <span class="badge badge-primary">Read Only</span>
+  </div>
+  <div class="card-body" style="background: #000;">
+    <div class="log-viewer">
+      {% for line in lines %}<div
+        style="margin-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 2px;">{{ line }}
+      </div>{% empty %}<div style="color: var(--text-muted);">No log entries found.</div>{% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
