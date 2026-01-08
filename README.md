@@ -38,9 +38,8 @@ aligns with OWASP Top 10 and OWASP ASVS security requirements.
 
 ## 4. Installation Steps (Using Virtual Environment)
 
-### Step 1: Clone the project
-
 ```bash
+### Step 1: Clone the project
 git clone https://github.com/nuzas96/secure-task-app.git
 cd secure_task_app
 
@@ -81,6 +80,8 @@ argon2-cffi
 python-dotenv
 whitenoise
 
+```
+
 ## 9. Screenshots of System
 
 - Login Page
@@ -93,4 +94,7 @@ whitenoise
   ![alt text](docs/images/admin-dashboard.png)
 - Admin Audit Log page
   ![alt text](docs/images/audit-log.png)
+
+```
+
 ```
