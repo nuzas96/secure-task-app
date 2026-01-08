@@ -49,7 +49,8 @@ python -m venv venv
 
 ### Step 3: Activate virtual environment
 
-source venv/bin/activate
+venv\Scripts\activate
+
 
 ### Step 4: Install dependencies
 
@@ -82,6 +83,12 @@ whitenoise
 ## 9. Screenshots of System
 
 - Login Page
+![alt text](image.png)
 - User Dashboard
+![alt text](image-4.png)
 - Task Management Page
+![alt text](image-2.png)
+- Admin Dashboard
+![alt text](image-1.png)
 - Admin Audit Log page
+![alt text](image-3.png)
