@@ -40,6 +40,7 @@ aligns with OWASP Top 10 and OWASP ASVS security requirements.
 
 ### Step 1: Clone the project
 
+```bash
 git clone https://github.com/nuzas96/secure-task-app.git
 cd secure_task_app
 
@@ -92,3 +93,4 @@ whitenoise
   ![alt text](docs/images/admin-dashboard.png)
 - Admin Audit Log page
   ![alt text](docs/images/audit-log.png)
+```
