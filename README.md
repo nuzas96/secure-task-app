@@ -54,6 +54,7 @@ venv\Scripts\activate
 ### Step 4: Install dependencies
 
 pip install -r requirements.txt
+```
 
 ## 5. Environment Configuration
 
@@ -61,19 +62,24 @@ Create a .env file based on .env.example.
 
 ## 6. Database Setup
 
-python manage.py collectstatic
+```bash
 python manage.py migrate
 
 ### Create admin user
 
 python manage.py createsuperuser
+```
 
 ## 7. How to Run the Application
 
+```bash
+python manage.py collectstatic
 python manage.py runserver
+```
 
 ## 8. Dependencies
 
+```bash
 Main dependencies used in this project:
 Django
 argon2-cffi
