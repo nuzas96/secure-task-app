@@ -40,7 +40,7 @@ aligns with OWASP Top 10 and OWASP ASVS security requirements.
 
 ### Step 1: Clone the project
 
-git clone <repository-url>
+git clone https://github.com/nuzas96/secure-task-app.git
 cd secure_task_app
 
 ### Step 2: Create virtual environment
@@ -61,6 +61,7 @@ Create a .env file based on .env.example.
 
 ## 6. Database Setup
 
+python manage.py collectstatic
 python manage.py migrate
 
 ### Create admin user
@@ -82,12 +83,12 @@ whitenoise
 ## 9. Screenshots of System
 
 - Login Page
-![alt text](docs/images/login.png)
+  ![alt text](docs/images/login.png)
 - User Dashboard
-![alt text](docs/images/dashboard.png)
+  ![alt text](docs/images/dashboard.png)
 - Task Management Page
-![alt text](docs/images/task.png)
+  ![alt text](docs/images/task.png)
 - Admin Dashboard
-![alt text](docs/images/admin-dashboard.png)
+  ![alt text](docs/images/admin-dashboard.png)
 - Admin Audit Log page
-![alt text](docs/images/audit-log.png)
+  ![alt text](docs/images/audit-log.png)
