@@ -82,12 +82,12 @@ whitenoise
 ## 9. Screenshots of System
 
 - Login Page
-![alt text](image.png)
+![alt text](docs/images/login.png)
 - User Dashboard
-![alt text](image-4.png)
+![alt text](docs/images/dashboard.png)
 - Task Management Page
-![alt text](image-2.png)
+![alt text](docs/images/task.png)
 - Admin Dashboard
-![alt text](image-1.png)
+![alt text](docs/images/admin-dashboard.png)
 - Admin Audit Log page
-![alt text](image-3.png)
+![alt text](docs/images/audit-log.png)
