@@ -33,10 +33,10 @@ class RegisterForm(UserCreationForm):
     def clean_password1(self):
         pw = self.cleaned_data.get("password1")
 
-        # ✅ Trigger Django's AUTH_PASSWORD_VALIDATORS
+        #Trigger Django's AUTH_PASSWORD_VALIDATORS
         validate_password(pw, self.instance)
 
-        # ✅ Optional extra rules
+        #Optional extra rules
         if not any(c.isdigit() for c in pw):
             raise forms.ValidationError("Password must include at least 1 number.")
         if not any(c.isupper() for c in pw):
@@ -49,7 +49,7 @@ def register_view(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
-            form.save()  # ✅ INI PALING PENTING
+            form.save()  #This is important
             messages.success(request, "Account created. Please login.")
             return redirect("login")
     else:
@@ -60,7 +60,7 @@ def register_view(request):
 
 def login_view(request):
     if request.user.is_authenticated:
-        # kalau user dah login, terus hantar ikut role
+        #If user already login, send to role
         if request.user.is_staff:
             return redirect("admin_dashboard")
         return redirect("user_dashboard")

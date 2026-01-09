@@ -36,11 +36,11 @@ def task_create(request):
 @require_POST
 @login_required
 def task_delete(request, task_id):
-    # Admin/staff: boleh delete semua tasks
+    # Admin/staff: can delete all tasks
     if request.user.is_staff:
         task = get_object_or_404(Task, id=task_id)
     else:
-        # Normal user: boleh delete task sendiri sahaja (anti-IDOR)
+        # Normal user: can delete only their own task (anti-IDOR)
         task = get_object_or_404(Task, id=task_id, owner=request.user)
 
     audit_logger.info(f"DELETE | user={request.user.username} | task_id={task.id} | title={task.title}")
