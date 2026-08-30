@@ -1,0 +1,59 @@
+name: ctf-risalah-rockyou
+
+on:
+  push:
+    branches:
+      - ctf-risalah-rockyou-20260830
+
+jobs:
+  crack:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix:
+        part: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+    steps:
+      - name: Install Hashcat CPU OpenCL
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq hashcat pocl-opencl-icd
+
+      - name: Prepare Rockyou shard
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -L --retry 3 -o /tmp/rockyou.tar.gz \
+            https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/Leaked-Databases/rockyou.txt.tar.gz
+          mkdir -p /tmp/ry
+          tar -xzf /tmp/rockyou.tar.gz -C /tmp/ry
+          src=$(find /tmp/ry -type f | head -1)
+          total=$(wc -l < "$src")
+          shards=20
+          per=$(( (total + shards - 1) / shards ))
+          start=$(( ${{ matrix.part }} * per + 1 ))
+          end=$(( start + per - 1 ))
+          if [ "$end" -gt "$total" ]; then end="$total"; fi
+          sed -n "${start},${end}p" "$src" > /tmp/chunk.txt
+          echo "PART=${{ matrix.part }} TOTAL=$total RANGE=${start}-${end} LINES=$(wc -l < /tmp/chunk.txt)"
+          cat > /tmp/hash.txt <<'EOF'
+          $office$*2007*20*128*16*08d124b5112efc45cdfefa30d98e6d23*f939b61cac62e50e7b900bd03701a951*30b9aeb53f2091ce710eb8d896ecddf0348f59d5
+          EOF
+
+      - name: Crack shard
+        shell: bash
+        run: |
+          set +e
+          hashcat -m 9400 -a 0 /tmp/hash.txt /tmp/chunk.txt \
+            --potfile-path /tmp/risalah.pot \
+            --status --status-timer=60 \
+            --force
+          rc=$?
+          echo HASHCAT_RC=$rc
+          echo '--- RESULT ---'
+          hashcat -m 9400 /tmp/hash.txt --show --potfile-path /tmp/risalah.pot || true
+          echo '--- END RESULT ---'
+          exit 0
